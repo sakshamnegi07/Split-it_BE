@@ -5,6 +5,8 @@ import (
 	"log"
 	"math"
 	"net/http"
+	"os"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sakshamnegi07/split-it/main/database"
@@ -187,7 +189,11 @@ func sendEmailForExpenseCreation(members []Member, currentUserId uint, amount fl
 					"<p><b>"+currentUser.Username+"</b> has added an expense of <b>Rs."+fmt.Sprintf("%.2f", amount)+"</b> in the group <b>"+group.GroupName+"</b> in Split-it app.</p>"+
 					"<p>Best regards,<br>Split-it Team</p>")
 
-			d := gomail.NewDialer("smtp.gmail.com", 587, "splitapplicationcustom@gmail.com", "yultnhjwafmumazt")
+			mailPort, err := strconv.Atoi(os.Getenv("MAIL_PORT"))
+			if err != nil {
+				return
+			}
+			d := gomail.NewDialer(os.Getenv("MAIL_HOST"), mailPort, os.Getenv("MAIL_ADDRESS"), os.Getenv("MAIL_PASS"))
 
 			if err := d.DialAndSend(m); err != nil {
 				return

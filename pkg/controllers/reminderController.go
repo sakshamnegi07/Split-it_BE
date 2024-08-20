@@ -2,6 +2,8 @@ package controller
 
 import (
 	"net/http"
+	"os"
+	"strconv"
 
 	"fmt"
 
@@ -66,7 +68,11 @@ func sendReminderEmail(fromUser, toUser User, amount float64) error {
 			"<p><b>"+fromUser.Username+"</b> has requested you to pay your share which is <b>Rs."+fmt.Sprintf("%.2f", amount)+"</b> in the Split-it app.</p>"+
 			"<p>Best regards,<br>Split-it Team</p>")
 
-	d := gomail.NewDialer("smtp.gmail.com", 587, "splitapplicationcustom@gmail.com", "yultnhjwafmumazt")
+	mailPort, err := strconv.Atoi(os.Getenv("MAIL_PORT"))
+	if err != nil {
+		return err
+	}
+	d := gomail.NewDialer(os.Getenv("MAIL_HOST"), mailPort, os.Getenv("MAIL_ADDRESS"), os.Getenv("MAIL_PASS"))
 
 	if err := d.DialAndSend(m); err != nil {
 		return err
