@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 type Balance struct {
 	BalanceId uint
 	GroupID   uint
@@ -16,7 +18,8 @@ type BalanceSummary struct {
 }
 
 type Payment struct {
-	PaidBy uint    `json:"paid_by"`
-	PaidTo uint    `json:"paid_to"`
-	Amount float64 `json:"amount"`
+	PaidBy uint      `json:"paid_by"`
+	PaidTo uint      `json:"paid_to"`
+	Amount float64   `json:"amount"`
+	PaidAt time.Time `json:"paid_at"`
 }

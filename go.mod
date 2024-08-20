@@ -10,6 +10,8 @@ require (
 	gorm.io/gorm v1.25.11
 )
 
+require github.com/joho/godotenv v1.5.1 // indirect
+
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/bytedance/sonic v1.11.6 // indirect
@@ -42,5 +44,4 @@ require (
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	github.com/joho/godotenv v1.5.1 // indirect
 )
