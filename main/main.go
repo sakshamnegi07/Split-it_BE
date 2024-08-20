@@ -1,12 +1,21 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"github.com/sakshamnegi07/split-it/main/database"
 	controller "github.com/sakshamnegi07/split-it/pkg/controllers"
 )
 
 func main() {
+	err := godotenv.Load()
+
+	if err != nil {
+		fmt.Println("Error loading .env file")
+	}
+
 	r := gin.Default()
 	database.Connect()
 
