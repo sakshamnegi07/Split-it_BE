@@ -1,6 +1,10 @@
 package models
 
-import "github.com/golang-jwt/jwt"
+import (
+	"time"
+
+	"github.com/golang-jwt/jwt"
+)
 
 type Credentials struct {
 	Username string `json:"username"`
@@ -9,8 +13,9 @@ type Credentials struct {
 }
 
 type LoginCredentials struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email     string    `json:"email"`
+	Password  string    `json:"password"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type Claims struct {

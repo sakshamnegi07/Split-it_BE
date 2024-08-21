@@ -21,7 +21,7 @@ func GetFriendsWithBalances(ctx *gin.Context) {
 	}
 	var user User
 
-	var balanceSummaries []models.BalanceSummary
+	balanceSummaries := []models.BalanceSummary{}
 
 	// Find the user
 	if err := database.DB.First(&user, userID).Error; err != nil {
@@ -29,7 +29,6 @@ func GetFriendsWithBalances(ctx *gin.Context) {
 		return
 	}
 
-	// Join the users table and group balances where the user is the borrower by lender, and sum the amounts
 	if err := database.DB.Model(&models.Balance{}).
 		Select("users.id as borrower_id, users.username as borrower_name, users.email as borrower_email, SUM(balances.amount) as total_amount").
 		Joins("left join users on users.id = balances.borrower").
@@ -40,7 +39,6 @@ func GetFriendsWithBalances(ctx *gin.Context) {
 		return
 	}
 
-	// Sum the total amount borrowed
 	var totalAmountBorrowed float64
 	for _, summary := range balanceSummaries {
 		totalAmountBorrowed += summary.TotalAmount
