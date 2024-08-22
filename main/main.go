@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -54,5 +56,13 @@ func main() {
 	//downloading report
 	r.GET("/download/payments/csv", controller.AuthMiddleware(), controller.DownloadPaymentsCSV)
 
-	r.Run(":9090")
+	//getting PORT from env file
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "9090"
+	}
+
+	if err := r.Run(":" + port); err != nil {
+		log.Fatal("Failed to start server:", err)
+	}
 }
