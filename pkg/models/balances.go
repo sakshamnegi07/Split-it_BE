@@ -21,5 +21,5 @@ type Payment struct {
 	PaidBy uint      `json:"paid_by"`
 	PaidTo uint      `json:"paid_to"`
 	Amount float64   `json:"amount"`
-	PaidAt time.Time `json:"paid_at"`
+	PaidAt time.Time `json:"paid_at" gorm:"default:CURRENT_TIMESTAMP"`
 }

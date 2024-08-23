@@ -81,7 +81,10 @@ func SettleMoney(ctx *gin.Context) {
 		Amount: math.Abs(request.Amount),
 	}
 
-	database.DB.Create(&payment)
+	if err := database.DB.Create(&payment).Error; err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Error creating user"})
+		return
+	}
 
 	var currentUser, lenderUser User
 	if err := database.DB.First(&currentUser, userID).Error; err != nil {
@@ -93,7 +96,7 @@ func SettleMoney(ctx *gin.Context) {
 		return
 	}
 
-	sendSettledPaymentMail(currentUser, lenderUser, request.Amount)
+	go sendSettledPaymentMail(currentUser, lenderUser, request.Amount)
 
 	ctx.JSON(http.StatusOK, gin.H{"message": "Balances settled successfully"})
 }

@@ -1,6 +1,8 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type Expense struct {
 	PaidBy      uint    `json:"paid_by"`
@@ -11,6 +13,6 @@ type Expense struct {
 
 type ExpenseWithUser struct {
 	Expense
-	Username  string    `json:"username"`
-	CreatedAt time.Time `json:"created_at"`
+	Username  string     `json:"username"`
+	CreatedAt *time.Time `json:"created_at"`
 }
