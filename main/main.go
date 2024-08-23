@@ -18,6 +18,7 @@ func main() {
 		fmt.Println("Error loading .env file")
 	}
 
+	fmt.Println(os.Getenv("PORT"))
 	r := gin.Default()
 	database.Connect()
 

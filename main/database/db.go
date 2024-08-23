@@ -20,7 +20,7 @@ func Connect() {
 	})
 
 	var err error
-	dsn := os.Getenv("DSN")
+	dsn := os.Getenv("DATABASE_DSN")
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
