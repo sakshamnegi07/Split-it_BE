@@ -102,6 +102,7 @@ func SettleMoney(ctx *gin.Context) {
 }
 
 func GetPaymentHistory(ctx *gin.Context) {
+	fmt.Print("checking")
 	userID, exists := ctx.Get("userId")
 	if !exists {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "User ID not found in context"})

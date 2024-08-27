@@ -124,3 +124,9 @@ func AuthMiddleware() gin.HandlerFunc {
 		ctx.Next()
 	}
 }
+
+func ValidateUser(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, gin.H{
+		"valid": true,
+	})
+}

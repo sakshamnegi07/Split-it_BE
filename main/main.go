@@ -15,16 +15,16 @@ func main() {
 	err := godotenv.Load()
 
 	if err != nil {
-		fmt.Println("Error loading .env file")
+		fmt.Println("Error loading .env file", err)
 	}
 
-	fmt.Println(os.Getenv("PORT"))
 	r := gin.Default()
 	database.Connect()
 
 	// Auth routes
 	r.POST("/register", controller.Register)
 	r.POST("/login", controller.Login)
+	r.GET("/validate-user", controller.AuthMiddleware(), controller.ValidateUser)
 
 	// User routes
 	r.GET("/get-user/", controller.AuthMiddleware(), controller.GetUserByEmail)
